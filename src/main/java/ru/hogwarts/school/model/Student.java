@@ -25,6 +25,9 @@ public class Student {
         this.age = age;
     }
 
+    public Student(String name, int age) {
+    }
+
     public Long getId() {
         return id;
     }
