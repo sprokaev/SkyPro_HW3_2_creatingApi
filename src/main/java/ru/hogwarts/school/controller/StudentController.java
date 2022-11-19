@@ -7,8 +7,6 @@ import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -92,7 +90,7 @@ public class StudentController {
     }
 
     @GetMapping("/lastStudents")
-    public List<Student> lastStudents(@RequestParam @Min(1) @Max(10) int count) {
+    public List<Student> lastStudents(@RequestParam int count) {
         return studentService.lastStudents(count);
     }
 }
