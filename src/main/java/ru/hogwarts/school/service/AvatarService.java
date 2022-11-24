@@ -1,5 +1,7 @@
 package ru.hogwarts.school.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,8 @@ import static java.nio.file.StandardOpenOption.CREATE_NEW;
 @Service
 @Transactional
 public class AvatarService {
+
+    public static final Logger LOG = LoggerFactory.getLogger(AvatarService.class);
 
     @Value("${avatars.dir.path}")
     private String avatarsDir;
@@ -60,6 +64,7 @@ public class AvatarService {
         avatar.setMediaType(avatarFile.getContentType());
         avatar.setData(generateDataForDB(filePath));
 
+        LOG.info("Was invoked method for save avatar");
         avatarRepository.save(avatar);
     }
 
@@ -82,6 +87,7 @@ public class AvatarService {
     }
 
     public Avatar findAvatar(long studentId) {
+        LOG.info("Was invoked method for find avatar by student id");
         return avatarRepository.findByStudentId(studentId).orElse(new Avatar());
     }
 
@@ -90,6 +96,7 @@ public class AvatarService {
     }
 
     public List<Avatar> findByPagination(int page, int size) {
+        LOG.info("Was invoked method for find by pagination");
         return avatarRepository.findAll(PageRequest.of(page - 1, size)).getContent();
     }
 }
