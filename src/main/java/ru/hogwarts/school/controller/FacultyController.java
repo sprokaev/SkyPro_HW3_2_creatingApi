@@ -64,6 +64,7 @@ public class FacultyController {
         }
         return ResponseEntity.ok(Collections.emptyList());
     }
+
     @GetMapping("/{id}/students")
     public ResponseEntity<Collection<Student>> getStudentsByFaculty(@PathVariable Long id) {
         Collection<Student> students = facultyService.findFaculty(id).getStudents();
@@ -71,5 +72,10 @@ public class FacultyController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         return ResponseEntity.ok(students);
+    }
+
+    @GetMapping("/findTheLongestFacultyName")
+    public String findTheLongestFacultyName() {
+        return facultyService.findTheLongestFacultyName();
     }
 }
