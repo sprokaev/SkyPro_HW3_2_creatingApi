@@ -6,12 +6,19 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.hogwarts.school.service.InfoService;
 
 import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/info")
 public class InfoController {
+
+    private final InfoService infoService;
+
+    public InfoController(InfoService infoService) {
+        this.infoService = infoService;
+    }
 
     public static final Logger LOG = LoggerFactory.getLogger(InfoController.class);
 
@@ -33,5 +40,15 @@ public class InfoController {
         time = System.currentTimeMillis() - time;
         LOG.debug("time = {}", time);
         return (int) time;
+    }
+
+    @GetMapping("/printStudents")
+    public void printStudents() {
+        infoService.printStudents();
+    }
+
+    @GetMapping("/printStudentsSync")
+    public void printStudentsSync() {
+        infoService.printStudentsSync();
     }
 }
